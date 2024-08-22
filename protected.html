@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoş Geldiniz</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a0dad, #a084eb); /* Morun tonları */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Yağmur Efekti */
+        .rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0; /* İçeriklerin altında kalır */
+        }
+
+        .rain-drop {
+            position: absolute;
+            bottom: 100%;
+            width: 2px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.5);
+            animation: fall 1s infinite linear;
+            opacity: 0.5;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1; /* Yağmurun üstünde kalır */
+            animation: fadeIn 2s ease-in-out; /* Sayfa yüklendiğinde fade-in animasyonu */
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+            color: #ffffff; /* Beyaz başlık */
+            animation: pulse 1.5s infinite alternate; /* Başlık için hafif bir büyüme ve küçülme animasyonu */
+        }
+
+        p {
+            font-size: 1.5em;
+            margin-top: 0;
+            color: #e0e0e0; /* Açık gri yazı rengi */
+            animation: slideUp 1.5s ease-in-out; /* Yazı yukarıdan aşağıya doğru gelir */
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        .social-button {
+            background-color: #5c2f91; /* Koyu mor arka plan */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .social-button:hover {
+            background-color: #6a0dad; /* Hover'da daha açık mor */
+            transform: scale(1.05); /* Hover'da büyüme efekti */
+        }
+
+        /* Buton renkleri */
+        .youtube {
+            background-color: #FF0000; /* YouTube kırmızı */
+        }
+
+        .discord {
+            background-color: #7289DA; /* Discord mavi */
+        }
+
+        /* Animasyonlar */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="rain"></div> <!-- Yağmur animasyonu için -->
+    <div class="container">
+        <h1>Hoş Geldiniz!</h1>
+        <p>Başarıyla giriş yaptınız. Burada olmanızdan memnunuz!</p>
+        <div class="button-container">
+            <a href="https://www.youtube.com" class="social-button youtube" target="_blank">YouTube</a>
+            <a href="https://discord.com" class="social-button discord" target="_blank">Discord</a>
+        </div>
+    </div>
+
+    <script>
+        const rainContainer = document.querySelector('.rain');
+
+        function createRainDrop() {
+            const rainDrop = document.createElement('div');
+            rainDrop.classList.add('rain-drop');
+
+            // Yağmur damlasının yatay konumunu rastgele ayarla
+            rainDrop.style.left = `${Math.random() * 100}vw`;
+            
+            // Yağmur damlasını rainContainer'a ekle
+            rainContainer.appendChild(rainDrop);
+
+            // 5 saniye sonra damlayı kaldır
+            setTimeout(() => {
+                rainDrop.remove();
+            }, 5000); // Yağmur damlası yere düştüğünde silinir
+        }
+
+        // Her 100ms'de bir yeni yağmur damlası oluştur
+        setInterval(createRainDrop, 100);
+    </script>
+</body>
+</html>
